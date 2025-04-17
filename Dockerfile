@@ -1,4 +1,4 @@
-FROM node:23-slim AS base
+FROM node:23-alpine AS base
 
 FROM base AS builder
 
