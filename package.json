@@ -7,8 +7,11 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.14.1",
+    "@prisma/client": "^6.6.0",
+    "better-auth": "^1.2.7",
     "dotenv": "^16.5.0",
-    "hono": "^4.7.7"
+    "hono": "^4.7.7",
+    "prisma": "^6.6.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
