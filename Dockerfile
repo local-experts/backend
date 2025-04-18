@@ -5,7 +5,7 @@ FROM base AS builder
 RUN apk add --no-cache gcompat
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml tsconfig.json src ./
+COPY package.json pnpm-lock.yaml tsconfig.json src prisma/schema.prisma ./
 
 RUN corepack enable pnpm && \ 
   pnpm i && \
