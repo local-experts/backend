@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@better-auth/expo':
+        specifier: ^1.2.7
+        version: 1.2.7(better-auth@1.2.7)
       '@hono/node-server':
         specifier: ^1.14.1
         version: 1.14.1(hono@4.7.7)
@@ -38,6 +41,11 @@ importers:
         version: 5.8.3
 
 packages:
+
+  '@better-auth/expo@1.2.7':
+    resolution: {integrity: sha512-g8qBx7lBFfOWvAzWwNUVZr6IWYwBcZ7D/HcTzBG1zoZmD7PbdseQugWlIeS711vZ/Qqez7ZV0mDwpk2h+uT4nQ==}
+    peerDependencies:
+      better-auth: 1.2.7
 
   '@better-auth/utils@0.2.4':
     resolution: {integrity: sha512-ayiX87Xd5sCHEplAdeMgwkA0FgnXsEZBgDn890XHHwSWNqqRZDYOq3uj2Ei2leTv1I2KbG5HHn60Ah1i2JWZjQ==}
@@ -380,6 +388,13 @@ packages:
     resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
 
 snapshots:
+
+  '@better-auth/expo@1.2.7(better-auth@1.2.7)':
+    dependencies:
+      '@better-fetch/fetch': 1.1.18
+      better-auth: 1.2.7
+      better-call: 1.0.8
+      zod: 3.24.3
 
   '@better-auth/utils@0.2.4':
     dependencies:

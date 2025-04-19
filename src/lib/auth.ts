@@ -1,10 +1,13 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "@prisma/client";
+import { expo } from "@better-auth/expo";
 
 const prisma = new PrismaClient();
 
 export const auth = betterAuth({
+  trustedOrigins: ["local://"],
+  plugins: [expo()], // as any due to a bug in better auth types
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
