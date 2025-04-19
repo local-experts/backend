@@ -8,7 +8,12 @@ app.get("/ping", (c) => {
   return c.json("pong!");
 });
 
-app.on(["POST", "GET"], "/auth/**", (c) => auth.handler(c.req.raw));
+
+app.on(["POST", "GET"], "api/auth/**", (c) => {
+  console.log(`[${new Date().toISOString()}] ${c.req.method} ${c.req.url}`);
+  return auth.handler(c.req.raw);
+});
+
 
 serve(
   {
