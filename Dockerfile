@@ -22,7 +22,6 @@ RUN adduser --system --uid 1001 hono
 COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
 COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
 COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
-COPY --from=builder --chown=hono:nodejs /app/src/lib/generated /app/src/lib/generated
 
 USER hono
 EXPOSE 3234
