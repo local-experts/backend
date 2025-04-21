@@ -1,0 +1,3 @@
+[submodule "src/lib/schemas"]
+	path = src/lib/schemas
+	url = https://github.com/local-experts/schemas.git
