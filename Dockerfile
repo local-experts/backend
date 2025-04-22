@@ -2,7 +2,6 @@ FROM node:23-alpine AS base
 
 # Accept the GitHub token as a build argument
 ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN
 
 # Configure git to use the token for all github.com access
 RUN git config --global url."https://${GITHUB_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
