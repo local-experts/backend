@@ -23,7 +23,7 @@ export const auth = betterAuth({
     apple: {
       clientId: process.env.APPLE_CLIENT_ID!, 
       clientSecret: process.env.APPLE_CLIENT_SECRET!, 
-      //appBundleIdentifier: process.env.APPLE_APP_BUNDLE_IDENTIFIER!, 
+      //appBundleIdentifier: process.env.APPLE_APP_BUNDLE_IDENTIFIER!, Needed in the future when setting up apple login
     },
     facebook: {
       clientId: process.env.FACEBOOK_CLIENT_ID!, 
