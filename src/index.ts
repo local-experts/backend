@@ -10,7 +10,7 @@ v1.get("/ping", (c) => {
   return c.json("pong!");
 });
 
-v1.on(["POST", "GET"], "api/auth/**", (c) => {
+v1.on(["POST", "GET"], "auth/**", (c) => {
   console.log(`[${new Date().toISOString()}] ${c.req.method} ${c.req.url}`);
   return auth.handler(c.req.raw);
 });
