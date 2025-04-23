@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export const auth = betterAuth({
   trustedOrigins: ["local://", "exp://"],
-  basePath: "/api/auth",
+  basePath: "/v1/auth",
   plugins: [expo() as any], // as any due to a bug in better auth types
   database: prismaAdapter(prisma, {
     provider: "postgresql",
