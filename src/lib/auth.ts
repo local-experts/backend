@@ -2,14 +2,15 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "@prisma/client";
 import { expo } from "@better-auth/expo";
-import { anonymous, haveIBeenPwned } from "better-auth/plugins";
+import { anonymous, haveIBeenPwned, twoFactor } from "better-auth/plugins";
 
 const prisma = new PrismaClient();
 
 export const auth = betterAuth({
   trustedOrigins: ["local://", "exp://"],
   basePath: "/v1/auth",
-  plugins: [expo() as any, anonymous(), haveIBeenPwned()],
+  appName: "Local",
+  plugins: [expo() as any, anonymous(), haveIBeenPwned(), twoFactor() ],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
