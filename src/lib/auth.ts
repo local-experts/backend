@@ -10,7 +10,9 @@ export const auth = betterAuth({
   trustedOrigins: ["local://", "exp://"],
   basePath: "/v1/auth",
   appName: "Local",
-  plugins: [expo() as any, anonymous(), haveIBeenPwned(), twoFactor() ],
+  plugins: [expo() as any, anonymous(), haveIBeenPwned({
+    customPasswordCompromisedMessage: "Ihr Passwort wurde in einem Datenleck gefunden. Bitte wählen Sie ein anderes.",
+  }), twoFactor() ],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
