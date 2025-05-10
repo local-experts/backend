@@ -8,7 +8,7 @@ FROM base AS build
 
 WORKDIR /app
 
-COPY package.json bun.lockb src prisma/schema.prisma ./
+COPY package.json bun.lock src prisma/schema.prisma ./
 
 RUN bun install --ci && \
   bunx prisma generate
