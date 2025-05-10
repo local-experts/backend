@@ -1,4 +1,4 @@
-ARG BUN_VERSION=1.2.12
+ARG BUN_VERSION=1.2.13
 FROM oven/bun:${BUN_VERSION}-slim as base
 
 RUN apt-get update -y && \
