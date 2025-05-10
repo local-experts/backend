@@ -1,30 +1,24 @@
-FROM node:23-alpine AS base
+ARG BUN_VERSION=1.2.12
+FROM oven/bun:${BUN_VERSION}-slim as base
 
-FROM base AS builder
+RUN apt-get update -y && apt-get install -y openssl
 
-RUN apk add --no-cache gcompat
+FROM base AS build
+
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml tsconfig.json src prisma/schema.prisma ./
+COPY package.json bun.lockb src prisma/schema.prisma ./
 
-# Enable corepack, install dependencies, generate Prisma client, build, and prune
-RUN corepack enable pnpm && \
-  pnpm i && \
-  npx prisma generate && \
-  pnpm build && \
-  pnpm prune --production
+RUN bun install --ci && \
+  bunx prisma generate
 
 FROM base AS runner
 WORKDIR /app
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 hono
+COPY --from=build /app /app
 
-COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
-COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
-COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
+RUN adduser --system --uid 1001 honobun
 
-USER hono
+USER honobun
 EXPOSE 3234
-
-CMD ["node", "/app/dist/index.js"]
+ENTRYPOINT [ "bun", "run", "index.ts" ]

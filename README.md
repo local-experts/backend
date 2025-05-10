@@ -1,8 +1,13 @@
 # Local Backend
 
+To install dependencies:
+```sh
+bun install
 ```
-pnpm install
-pnpm dev
+
+To run:
+```sh
+bun run dev
 ```
 
 ```

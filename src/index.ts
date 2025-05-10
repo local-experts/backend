@@ -1,7 +1,19 @@
-import { serve } from "@hono/node-server";
-import { Hono } from "hono";
-import "dotenv/config";
+import { Hono } from 'hono'
 import { auth } from "./lib/auth.js";
+
+declare module "bun" {
+  interface Env {
+    PORT: number;
+    GOOGLE_CLIENT_ID: string;
+    GOOGLE_CLIENT_SECRET: string;
+    APPLE_CLIENT_ID: string;
+    APPLE_CLIENT_SECRET: string;
+    APPLE_APP_BUNDLE_IDENTIFIER: string;
+    FACEBOOK_CLIENT_ID: string;
+    FACEBOOK_CLIENT_SECRET: string;
+    DATABASE_URL: string;
+  }
+}
 
 const app = new Hono();
 const v1 = new Hono();
@@ -17,12 +29,7 @@ v1.on(["POST", "GET"], "auth/**", (c) => {
 
 app.route("/v1", v1);
 
-serve(
-  {
-    fetch: app.fetch,
-    port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
-  },
-  (info) => {
-    console.log(`Server is running on http://localhost:${info.port}`);
-  }
-);
+export default { 
+  port: Bun.env.PORT ? Bun.env.PORT : 3000, 
+  fetch: app.fetch, 
+} 

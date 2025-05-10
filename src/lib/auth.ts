@@ -10,7 +10,7 @@ export const auth = betterAuth({
   trustedOrigins: ["local://", "exp://"],
   basePath: "/v1/auth",
   appName: "Local",
-  plugins: [expo() as any, anonymous(), haveIBeenPwned({
+  plugins: [expo(), anonymous(), haveIBeenPwned({
     customPasswordCompromisedMessage: "Ihr Passwort wurde in einem Datenleck gefunden. Bitte wählen Sie ein anderes.",
   }), twoFactor() ],
   database: prismaAdapter(prisma, {
@@ -21,17 +21,17 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!, 
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!, 
+      clientId: Bun.env.GOOGLE_CLIENT_ID, 
+      clientSecret: Bun.env.GOOGLE_CLIENT_SECRET, 
     },
     apple: {
-      clientId: process.env.APPLE_CLIENT_ID!, 
-      clientSecret: process.env.APPLE_CLIENT_SECRET!, 
-      //appBundleIdentifier: process.env.APPLE_APP_BUNDLE_IDENTIFIER!, Needed in the future when setting up apple login
+      clientId: Bun.env.APPLE_CLIENT_ID, 
+      clientSecret: Bun.env.APPLE_CLIENT_SECRET, 
+      //appBundleIdentifier: Bun.env.APPLE_APP_BUNDLE_IDENTIFIER!, Needed in the future when setting up apple login
     },
     facebook: {
-      clientId: process.env.FACEBOOK_CLIENT_ID!, 
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!, 
+      clientId: Bun.env.FACEBOOK_CLIENT_ID, 
+      clientSecret: Bun.env.FACEBOOK_CLIENT_SECRET, 
     },
   },
 });
