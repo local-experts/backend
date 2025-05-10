@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY --from=build /app /app
 
-RUN adduser --system --uid 1001 honobun
+RUN adduser --system --uid 999 honobun
 
 USER honobun
 EXPOSE 3234
