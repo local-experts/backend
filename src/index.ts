@@ -1,5 +1,6 @@
-import { Hono } from 'hono'
-import { auth } from "./lib/auth.js";
+import { Hono, type Context } from "hono";
+import { auth } from "./lib/auth";
+import Random from "./routes/random";
 
 declare module "bun" {
   interface Env {
@@ -27,9 +28,13 @@ v1.on(["POST", "GET"], "auth/**", (c) => {
   return auth.handler(c.req.raw);
 });
 
+v1.get("/random", (c: Context) => {
+  return c.json(Random());
+});
+
 app.route("/v1", v1);
 
-export default { 
-  port: Bun.env.PORT ? Bun.env.PORT : 3000, 
-  fetch: app.fetch, 
-} 
+export default {
+  port: Bun.env.PORT ? Bun.env.PORT : 3000,
+  fetch: app.fetch,
+};
