@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { PrismaClient }  from"../generated/client/";
+import { PrismaClient }  from "../generated/client";
 import { expo } from "@better-auth/expo";
 import { anonymous, haveIBeenPwned, twoFactor } from "better-auth/plugins";
 import { createAuthMiddleware } from "better-auth/api";
