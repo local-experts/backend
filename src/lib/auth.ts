@@ -10,6 +10,12 @@ export const auth = betterAuth({
   trustedOrigins: ["local://", "exp://"],
   basePath: "/v1/auth",
   appName: "Local",
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 60,
+    },
+  },
   plugins: [
     expo(),
     anonymous(),
