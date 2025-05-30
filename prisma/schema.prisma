@@ -19,7 +19,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   isAnonymous   Boolean?
-  isContractor  Boolean
+  isContractor  Boolean @default(false)
 
   twoFactorEnabled Boolean?
   twofactors       TwoFactor[]
