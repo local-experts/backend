@@ -1,5 +1,5 @@
-ARG BUN_VERSION=1.2.13
-FROM oven/bun:${BUN_VERSION}-slim as base
+ARG BUN_VERSION=1.2.15
+FROM oven/bun:${BUN_VERSION}-slim AS base
 
 RUN apt-get update -y && \
     apt-get install -y openssl build-essential
