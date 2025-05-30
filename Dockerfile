@@ -24,4 +24,4 @@ RUN adduser --system --uid 999 honobun
 
 USER honobun
 EXPOSE 3234
-ENTRYPOINT [ "bun", "run", "index.ts" ]
+ENTRYPOINT [ "bun", "run", "src/index.ts" ]
