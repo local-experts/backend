@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "../generated/client";
 import { expo } from "@better-auth/expo";
-import { anonymous, haveIBeenPwned, twoFactor } from "better-auth/plugins";
+import { anonymous, createAuthMiddleware, haveIBeenPwned, twoFactor } from "better-auth/plugins";
 
 const prisma = new PrismaClient();
 
@@ -55,4 +55,9 @@ export const auth = betterAuth({
       },
     },
   },
+  hooks: {
+        before: createAuthMiddleware(async (ctx) => {
+          console.log(ctx.body)
+        }),
+    },
 });
