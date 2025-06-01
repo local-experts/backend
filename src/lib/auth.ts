@@ -2,7 +2,13 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "../generated/client";
 import { expo } from "@better-auth/expo";
-import { anonymous, createAuthMiddleware, haveIBeenPwned, twoFactor } from "better-auth/plugins";
+import {
+  anonymous,
+  createAuthMiddleware,
+  haveIBeenPwned,
+  twoFactor,
+} from "better-auth/plugins";
+import { encodeImageToBlurhash } from "./util/image";
 
 const prisma = new PrismaClient();
 
@@ -53,11 +59,25 @@ export const auth = betterAuth({
         required: false,
         defaultValue: false,
       },
+      imageHash: {
+        type: "string",
+        required: false,
+      },
     },
   },
   hooks: {
-        before: createAuthMiddleware(async (ctx) => {
-          console.log(ctx.body)
-        }),
-    },
+    before: createAuthMiddleware(async (ctx) => {
+      if (ctx.path === "/sign-in/social" && ctx.body.image) {
+        return {
+          context: {
+            ...ctx,
+            body: {
+              ...ctx.body,
+              imageHash: await encodeImageToBlurhash(ctx.body.image),
+            },
+          },
+        };
+      }
+    }),
+  },
 });
