@@ -67,6 +67,8 @@ export const auth = betterAuth({
   },
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
+      console.log(ctx.path)
+      console.log(ctx.body)
       if (ctx.path === "/sign-in/social" && ctx.body.image) {
         return {
           context: {
