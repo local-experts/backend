@@ -62,37 +62,7 @@ export const auth = betterAuth({
       imageHash: {
         type: "string",
         required: false,
-        defaultValue: "",
       },
     },
-  },
-  hooks: {
-    before: createAuthMiddleware(async (ctx) => {
-      if (ctx.path === "/sign-in/social" && ctx.body.image) {
-        return {
-          context: {
-            ...ctx,
-            body: {
-              ...ctx.body,
-              imageHash: await encodeImageToBlurhash(ctx.body.image),
-            },
-          },
-        };
-      }
-    }),
-    after: createAuthMiddleware(async (ctx) => {
-      console.log("uwuw", ctx.context);
-      if (ctx.path === "/sign-in/social" && ctx.body.image) {
-        return {
-          context: {
-            ...ctx,
-            body: {
-              ...ctx.body,
-              imageHash: await encodeImageToBlurhash(ctx.body.image),
-            },
-          },
-        };
-      }
-    }),
   },
 });
