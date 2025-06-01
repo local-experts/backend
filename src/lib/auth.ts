@@ -62,9 +62,7 @@ export const auth = betterAuth({
       imageHash: {
         type: "string",
         required: false,
-        defaultValue: await encodeImageToBlurhash(
-          
-        ),
+        defaultValue: "",
       },
     },
   },
