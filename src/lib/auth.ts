@@ -65,4 +65,26 @@ export const auth = betterAuth({
       },
     },
   },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          console.log("Creating user:", user);
+          if (user.image) {
+            const imageHash = await encodeImageToBlurhash(user.image);
+            return {
+              data: {
+                ...user,
+                imageHash,
+              },
+            };
+          }
+          // If no image, just return the user as is
+          return {
+            data: user,
+          };
+        },
+      },
+    },
+  },
 });
