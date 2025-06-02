@@ -69,7 +69,6 @@ export const auth = betterAuth({
     user: {
       create: {
         before: async (user) => {
-          console.log("Creating user:", user);
           if (user.image) {
             const imageHash = await encodeImageToBlurhash(user.image);
             return {
