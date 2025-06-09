@@ -7,8 +7,10 @@ import {
   createAuthMiddleware,
   haveIBeenPwned,
   twoFactor,
+  emailOTP,
 } from "better-auth/plugins";
 import { encodeImageToBlurhash } from "./util/image";
+import { sendVerificationEmail } from "./emails/verify";
 
 const prisma = new PrismaClient();
 
@@ -30,6 +32,14 @@ export const auth = betterAuth({
         "Ihr Passwort wurde in einem Datenleck gefunden. Bitte wählen Sie ein anderes.",
     }),
     twoFactor(),
+    emailOTP({
+      async sendVerificationOTP({ email, otp }) {
+        await sendVerificationEmail({
+          userEmail: email,
+          otp: otp,
+        });
+      },
+    }),
   ],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
