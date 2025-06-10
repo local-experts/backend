@@ -4,7 +4,6 @@ import { PrismaClient } from "../generated/client";
 import { expo } from "@better-auth/expo";
 import {
   anonymous,
-  createAuthMiddleware,
   haveIBeenPwned,
   twoFactor,
   emailOTP,
