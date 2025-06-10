@@ -12,7 +12,7 @@ export async function sendVerificationEmail({
   console.log("called verification email");
   try {
     const response = await resend.emails.send({
-      from: "Verification <emails@localexperts.app>",
+      from: "Verification <verify@localexperts.app>",
       to: userEmail,
       subject: "Verify your email address",
       html: `<div>

@@ -13,6 +13,7 @@ declare module "bun" {
     FACEBOOK_CLIENT_ID: string;
     FACEBOOK_CLIENT_SECRET: string;
     DATABASE_URL: string;
+    RESEND_API_KEY: string;
   }
 }
 
