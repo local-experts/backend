@@ -1,6 +1,6 @@
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../src/generated/client"
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -20,10 +20,12 @@ model User {
   sessions      Session[]
   accounts      Account[]
   isAnonymous   Boolean?
-  isContractor  Boolean @default(false)
+  isContractor  Boolean   @default(false)
 
   twoFactorEnabled Boolean?
   twofactors       TwoFactor[]
+  Project          Project[]
+  Contractor       Contractor[]
 
   @@unique([email])
   @@map("user")
@@ -82,4 +84,70 @@ model TwoFactor {
   user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("twoFactor")
+}
+
+enum AvailableStatus {
+  planung
+  abgesagt
+  in_arbeit     @map("in arbeit")
+  abgeschlossen
+}
+
+model Project {
+  id          Int             @id
+  name        String
+  status      AvailableStatus
+  description String?
+  createdAt   DateTime
+  updatedAt   DateTime
+  ownerId     String
+  owner       User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  timeline    TimelineItem[]
+  contractors Contractor[]    @relation("ContractorProjects")
+  attachments Attachment[]
+
+  @@map("project")
+}
+
+model TimelineItem {
+  id           Int             @id
+  project      Project         @relation(fields: [projectId], references: [id])
+  projectId    Int
+  title        String
+  category     String?
+  status       AvailableStatus
+  date         DateTime
+  description  String?
+  assignedTo   Contractor?     @relation(fields: [assignedToId], references: [id])
+  assignedToId Int?
+
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+model Contractor {
+  id           Int            @id
+  userId       String
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName  String
+  address      String?
+  phone        String?
+  email        String?
+  createdAt    DateTime
+  updatedAt    DateTime
+  projects     Project[]      @relation("ContractorProjects")
+  TimelineItem TimelineItem[]
+
+  @@map("contractor")
+}
+
+model Attachment {
+  id          Int      @id @default(autoincrement())
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   Int
+  url         String
+  filename    String
+  uploadedAt  DateTime @default(now())
+  description String?
+  hash        String?
 }
