@@ -1,6 +1,6 @@
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../src/generated/client"
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -20,10 +20,12 @@ model User {
   sessions      Session[]
   accounts      Account[]
   isAnonymous   Boolean?
-  isContractor  Boolean @default(false)
+  isContractor  Boolean   @default(false)
 
   twoFactorEnabled Boolean?
   twofactors       TwoFactor[]
+  Project          Project[]
+  Contractor       Contractor[]
 
   @@unique([email])
   @@map("user")
