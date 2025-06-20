@@ -9,7 +9,7 @@ import {
   emailOTP,
 } from "better-auth/plugins";
 import { encodeImageToBlurhash } from "./util/image";
-import { sendVerificationEmail } from "./emails/verify.tsx";
+import { sendVerificationEmail } from "./emails/verify";
 
 const prisma = new PrismaClient();
 
