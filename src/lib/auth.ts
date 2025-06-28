@@ -7,6 +7,7 @@ import {
   haveIBeenPwned,
   twoFactor,
   emailOTP,
+  admin,
 } from "better-auth/plugins";
 import { encodeImageToBlurhash } from "./util/image";
 import { sendVerificationEmail } from "./emails/verify";
@@ -25,6 +26,7 @@ export const auth = betterAuth({
   },
   plugins: [
     expo(),
+    admin(),
     anonymous(),
     haveIBeenPwned({
       customPasswordCompromisedMessage:
