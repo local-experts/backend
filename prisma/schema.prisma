@@ -99,7 +99,7 @@ model Project {
   status      AvailableStatus
   description String?
   createdAt   DateTime
-  updatedAt   DateTime
+  updatedAt   DateTime @updatedAt
   ownerId     String
   owner       User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   timeline    TimelineItem[]
