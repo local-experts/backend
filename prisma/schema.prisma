@@ -98,7 +98,7 @@ model Project {
   name        String
   status      AvailableStatus
   description String?
-  createdAt   DateTime
+  createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   ownerId     String
   owner       User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
