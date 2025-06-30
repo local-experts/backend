@@ -15,7 +15,7 @@ import { sendVerificationEmail } from "./emails/verify";
 const prisma = new PrismaClient();
 
 export const auth = betterAuth({
-  trustedOrigins: ["local://", "exp://"],
+  trustedOrigins: ["local://", "exp://", "http://localhost:3000", "https://admin.localexperts.app"],
   basePath: "/v1/auth",
   appName: "Local",
   session: {
