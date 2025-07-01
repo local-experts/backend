@@ -22,12 +22,11 @@ declare module "bun" {
 const app = new Hono();
 const v1 = new Hono();
 
-app.use("*", cors({
+app.use("auth/**", cors({
   origin: trustedOrigins,
   allowHeaders: ["Content-Type", "Authorization"],
   allowMethods: ["POST", "GET", "DELETE", "PUT", "OPTIONS"],
   exposeHeaders: ["Content-Length"],
-  maxAge: 600,
   credentials: true,
 }),);
 
