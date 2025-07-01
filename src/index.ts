@@ -22,13 +22,14 @@ declare module "bun" {
 const app = new Hono();
 const v1 = new Hono();
 
-app.use("auth/**", cors({
+app.use("*", cors({
   origin: trustedOrigins,
   allowHeaders: ["Content-Type", "Authorization"],
   allowMethods: ["POST", "GET", "DELETE", "PUT", "OPTIONS"],
-  exposeHeaders: ["Content-Length"],
+  exposeHeaders: ["Content-Length", "Authorization"],
+  maxAge: 600,
   credentials: true,
-}),);
+}));
 
 v1.get("/ping", (c) => {
   return c.json("pong!");
