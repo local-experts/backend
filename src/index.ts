@@ -1,6 +1,8 @@
 import { Hono, type Context } from "hono";
 import { auth } from "./lib/auth";
 import Random from "./routes/random";
+import { cors } from "hono/cors";
+import { trustedOrigins } from "./lib/util/constants";
 
 declare module "bun" {
   interface Env {
@@ -19,6 +21,15 @@ declare module "bun" {
 
 const app = new Hono();
 const v1 = new Hono();
+
+app.use("*", cors({
+  origin: trustedOrigins,
+  allowHeaders: ["Content-Type", "Authorization"],
+  allowMethods: ["POST", "GET", "DELETE", "PUT", "OPTIONS"],
+  exposeHeaders: ["Content-Length"],
+  maxAge: 600,
+  credentials: true,
+}),);
 
 v1.get("/ping", (c) => {
   return c.json("pong!");
