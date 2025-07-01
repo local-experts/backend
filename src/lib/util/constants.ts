@@ -1,1 +1,1 @@
-export const trustedOrigins = ["local://", "exp://", "http://localhost:3000", "https://admin.localexperts.app"] as const;
+export const trustedOrigins = ["local://", "exp://", "http://localhost:3000", "https://admin.localexperts.app"];
