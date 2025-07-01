@@ -11,11 +11,12 @@ import {
 } from "better-auth/plugins";
 import { encodeImageToBlurhash } from "./util/image";
 import { sendVerificationEmail } from "./emails/verify";
+import { trustedOrigins } from "./util/constants";
 
 const prisma = new PrismaClient();
 
 export const auth = betterAuth({
-  trustedOrigins: ["local://", "exp://", "http://localhost:3000", "https://admin.localexperts.app"],
+  trustedOrigins,
   basePath: "/v1/auth",
   appName: "Local",
   session: {
