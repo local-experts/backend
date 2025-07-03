@@ -12,6 +12,7 @@ import {
 import { encodeImageToBlurhash } from "./util/image";
 import { sendVerificationEmail } from "./emails/verify";
 import { trustedOrigins } from "./util/constants";
+import { nextCookies } from "better-auth/next-js";
 
 const prisma = new PrismaClient();
 
@@ -29,6 +30,7 @@ export const auth = betterAuth({
     expo(),
     admin(),
     anonymous(),
+    nextCookies(),
     haveIBeenPwned({
       customPasswordCompromisedMessage:
         "Ihr Passwort wurde in einem Datenleck gefunden. Bitte wählen Sie ein anderes.",
