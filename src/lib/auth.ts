@@ -30,7 +30,6 @@ export const auth = betterAuth({
     expo(),
     admin(),
     anonymous(),
-    nextCookies(),
     haveIBeenPwned({
       customPasswordCompromisedMessage:
         "Ihr Passwort wurde in einem Datenleck gefunden. Bitte wählen Sie ein anderes.",
@@ -44,6 +43,7 @@ export const auth = betterAuth({
         });
       },
     }),
+    nextCookies(),
   ],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
