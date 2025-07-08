@@ -94,7 +94,7 @@ enum AvailableStatus {
 }
 
 model Project {
-  id          Int             @id
+  id          Int             @id @default(autoincrement())
   name        String
   status      AvailableStatus
   description String?
@@ -110,7 +110,7 @@ model Project {
 }
 
 model TimelineItem {
-  id           Int             @id
+  id           Int             @id @default(autoincrement())
   project      Project         @relation(fields: [projectId], references: [id])
   projectId    Int
   title        String
@@ -126,7 +126,7 @@ model TimelineItem {
 }
 
 model Contractor {
-  id           Int            @id
+  id           Int            @id @default(autoincrement())
   userId       String
   user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   companyName  String
