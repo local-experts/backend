@@ -37,6 +37,19 @@ const initializeRoutes = async () => {
 
 await initializeRoutes();
 
+const initializeRoutes = async () => {
+  try {
+    const routes = await createFileBasedRouter("./src/api");
+
+    routes.registerRoutes(v1);
+
+  } catch (error) {
+    console.error("Error initializing file-based routing:", error);
+  }
+};
+
+await initializeRoutes();
+
 app.route("/v1", v1);
 
 export default {
