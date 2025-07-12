@@ -1,6 +1,5 @@
-import { Hono, type Context } from "hono";
+import { Hono } from "hono";
 import { auth } from "./lib/auth";
-import Random from "./routes/random";
 import { cors } from "hono/cors";
 import { trustedOrigins } from "./lib/util/constants";
 import { createFileBasedRouter } from "./lib/fileBasedRouting";
@@ -20,22 +19,14 @@ app.use(
   })
 );
 
-v1.get("/ping", (c) => {
-  return c.json("pong!");
-});
-
 v1.on(["POST", "GET"], "auth/**", (c) => {
   console.log(`[${new Date().toISOString()}] ${c.req.method} ${c.req.url}`);
   return auth.handler(c.req.raw);
 });
 
-v1.get("/random", (c: Context) => {
-  return c.json(Random());
-});
-
 const initializeRoutes = async () => {
   try {
-    const routes = await createFileBasedRouter("./src/api");
+    const routes = await createFileBasedRouter("./src/routes");
 
     routes.registerRoutes(v1);
 
