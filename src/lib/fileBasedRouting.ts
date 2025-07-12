@@ -28,13 +28,16 @@ export class FileBasedRouter {
     await this.scanDirectory(this.basePath, "");
   }
 
-  private async scanDirectory(fullPath: string, relativePath: string): Promise<void> {
+  private async scanDirectory(
+    fullPath: string,
+    relativePath: string
+  ): Promise<void> {
     try {
       const items = await readdir(fullPath, { withFileTypes: true });
-      
+
       for (const item of items) {
         const itemPath = join(fullPath, item.name);
-        
+
         if (item.isDirectory()) {
           const newRelativePath = relativePath + "/" + item.name;
           await this.scanDirectory(itemPath, newRelativePath);
@@ -47,18 +50,21 @@ export class FileBasedRouter {
     }
   }
 
-  private async loadRouteHandlers(dirPath: string, routePath: string): Promise<void> {
+  private async loadRouteHandlers(
+    dirPath: string,
+    routePath: string
+  ): Promise<void> {
     try {
       const indexPath = join(dirPath, "index.ts");
-      
+
       const indexFile = Bun.file(indexPath);
       const exists = await indexFile.exists();
-      
+
       if (!exists) {
         console.warn(`Index file not found: ${indexPath}`);
         return;
       }
-      
+
       const absolutePath = `file://${process.cwd()}/${indexPath}`;
       const handlers = await import(absolutePath);
 
@@ -81,28 +87,28 @@ export class FileBasedRouter {
 
   registerRoutes(app: Hono): void {
     for (const route of this.routes) {
-      const honoPath = `/api${route.path}`.replace(/\[(\w+)\]/g, ':$1');
+      const honoPath = route.path.replace(/\[(\w+)\]/g, ":$1");
 
       if (route.handlers.get) {
         app.get(honoPath, route.handlers.get);
         console.log(`Registered GET ${honoPath}`);
       }
-      
+
       if (route.handlers.post) {
         app.post(honoPath, route.handlers.post);
         console.log(`Registered POST ${honoPath}`);
       }
-      
+
       if (route.handlers.put) {
         app.put(honoPath, route.handlers.put);
         console.log(`Registered PUT ${honoPath}`);
       }
-      
+
       if (route.handlers.delete) {
         app.delete(honoPath, route.handlers.delete);
         console.log(`Registered DELETE ${honoPath}`);
       }
-      
+
       if (route.handlers.patch) {
         app.patch(honoPath, route.handlers.patch);
         console.log(`Registered PATCH ${honoPath}`);
@@ -115,8 +121,10 @@ export class FileBasedRouter {
   }
 }
 
-export async function createFileBasedRouter(basePath?: string): Promise<FileBasedRouter> {
+export async function createFileBasedRouter(
+  basePath?: string
+): Promise<FileBasedRouter> {
   const router = new FileBasedRouter(basePath);
   await router.discoverRoutes();
   return router;
-} 
+}
