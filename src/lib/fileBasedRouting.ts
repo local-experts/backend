@@ -36,7 +36,7 @@ export class FileBasedRouter {
         const itemPath = join(fullPath, item.name);
         
         if (item.isDirectory()) {
-          const newRelativePath = path.posix.join(relativePath, item.name);
+          const newRelativePath = relativePath + "/" + item.name;
           await this.scanDirectory(itemPath, newRelativePath);
         } else if (item.name === "index.ts") {
           await this.loadRouteHandlers(fullPath, relativePath);
