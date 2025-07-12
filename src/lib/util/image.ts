@@ -13,7 +13,7 @@ const getImageData = (image: Image): ImageData => {
   return context.getImageData(0, 0, image.width, image.height);
 };
 
-export const encodeImageToBlurhash = async (imageUrl: string) => {
+export const encodeImageToBlurhash = async (imageUrl: string): Promise<string | null> => {
   try {
     const image = await loadImage(imageUrl);
     const imageData = getImageData(image);
