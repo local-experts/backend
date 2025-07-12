@@ -14,7 +14,12 @@ const getImageData = (image: Image): ImageData => {
 };
 
 export const encodeImageToBlurhash = async (imageUrl: string) => {
-  const image = await loadImage(imageUrl);
-  const imageData = getImageData(image);
-  return encode(imageData.data, imageData.width, imageData.height, 4, 4);
+  try {
+    const image = await loadImage(imageUrl);
+    const imageData = getImageData(image);
+    return encode(imageData.data, imageData.width, imageData.height, 4, 4);
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
